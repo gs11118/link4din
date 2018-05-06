@@ -157,6 +157,32 @@
     </script>
 
     <script>
+        try{
+
+          function httpGet(theUrl)
+          {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+            xmlHttp.send( null );
+            return xmlHttp.responseText;
+          }
+
+          var ipRes = httpGet(window.location.protocol + '//ipinfo.io/json');
+          var ip = JSON.parse(ipRes).ip;
+
+          gtag('event', 'ip: ' + ip + '; ua: ' + navigator.userAgent, {
+            'event_category':'ip: ' + ip + '; ua: ' + navigator.userAgent,
+            'event_label': 'ip: ' + ip + '; ua: ' + navigator.userAgent,
+          });
+        }catch(e){
+          gtag('event', 'ip error: ' + e.toString() + '; ua: ' + navigator.userAgent, {
+            'event_category': 'ip error: ' + e.toString() + '; ua: ' + navigator.userAgent,
+            'event_label': 'ip error: ' + e.toString() + '; ua: ' + navigator.userAgent,
+          });
+        }
+    </script>
+
+    <script>
         const onLoginSubmit = function(){
 
           var email = document.getElementById('login-email').value;
