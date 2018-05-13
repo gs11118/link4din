@@ -1,25 +1,77 @@
-<button>Buy now</button>
+<html>
+<head>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-12420899-10"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12420899-10"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
 
-  function gtag() {
-    dataLayer.push(arguments);
-  }
+      function gtag() {
+        dataLayer.push(arguments);
+      }
 
-  gtag('js', new Date());
+      gtag('js', new Date());
 
-  gtag('config', 'UA-12420899-10');
-</script>
+      gtag('config', 'UA-12420899-10');
+    </script>
 
-<style>
-    * {
-        background: #0077B5;
-    }
-</style>
+    <style>
+        button {
+            background: white;
+            border: none;
+            font-size: 34px;
+            color: #0077b5;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
 
-<script>
-  window.location.href = 'https://www.freereikicourse.com/special-offer/?utm_source=src-link4din-com&utm_campaign=src-link4din-com&utm_medium=src-link4din-com';
-</script>
+    <script>
+      // window.location.href = 'https://www.freereikicourse.com/special-offer/?utm_source=src-link4din-com&utm_campaign=src-link4din-com&utm_medium=src-link4din-com';
+      var goToLinkedin = function () {
+        gtag('event', 'click');
+        window.location.href = 'https://linkedin.com';
+      };
+
+      var trackMove = function (e) {
+        gtag('event', 'mousemove', {
+          'event_category': 'mousemove',
+          'event_label': 'mousemove: ' + JSON.stringify({
+            x: e.clientX,
+            y: e.clientY
+          })
+        });
+      };
+
+
+      try {
+
+        function httpGet(theUrl) {
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.open("GET", theUrl, false); // false for synchronous request
+          xmlHttp.send(null);
+          return xmlHttp.responseText;
+        }
+
+        var ipRes = httpGet(window.location.protocol + '//ipinfo.io/json');
+        var ip = JSON.parse(ipRes).ip;
+
+        gtag('event', 'ip', {
+          'event_category': 'ip',
+          'event_label': 'ip: ' + ip + '; ua: ' + navigator.userAgent,
+        });
+      } catch (e) {
+        gtag('event', 'ip error', {
+          'event_category': 'ip error',
+          'event_label': 'ip error: ' + e.toString() + '; ua: ' + navigator.userAgent,
+        });
+      }
+
+    </script>
+</head>
+
+
+<body onmousemove="trackMove(event)">
+<button onclick="goToLinkedin()">Click to continue to LinkedIn...</button>
+</body>
+</html>
